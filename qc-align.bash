@@ -32,7 +32,7 @@ cat fastq.list | awk -F"[_./]" '{print $0" "$8}' | head
 # ideally we want filename, name, RGID=five digits, RGNAME=numberL_striatum_Q___HET_F_L8, RG-lib=LB8
 
 cat fastq.2col | awk ' NR%2 == 1 {print "gsnap --format=sam --read-group-id=RGUNKNOWN --read-group-name=$i --read-group-library=LBUNKNOWN --read-group-platform=illumina -N 1 -m 10 -d mm10_e $1 $fastqdir/HD_ESC_pool_${i}_2_fastq.txt | samtools view -Sbh - > $workdir/$i.bam ; samtools sort $i.bam $i.srtd ; 
-    samtools index $i.srtd.bam
+    samtools index $i.srtd.bam"}'
 
 # http://stackoverflow.com/questions/10220348/putting-two-consecutive-lines-into-one-line-with-perl-awk
 cat fastq.list | sed 'N;s/\n/ /' | awk -F"[./]" '{print $0" "$8}' > fastq.3col
